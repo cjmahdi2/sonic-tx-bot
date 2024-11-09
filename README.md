@@ -21,7 +21,7 @@ Sonic TX bot for adding more tx on chain
 
 **1. Run:
 ```
-git clone https://github.com/Widiskel/sonic-tx-bot.git
+git clone https://github.com/cjmahdi2/sonic-tx-bot.git
 cd sonic-tx-bot
 npm install
 cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js
