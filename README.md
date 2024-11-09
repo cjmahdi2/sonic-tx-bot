@@ -37,19 +37,7 @@ npm run start
 ```
 Then take Ctrl + A then D to leave the Screen
 
-## CONFIGURATION
 
-im adding config file for you to configure, open `src config/config.js` and adjust config. Here some configurable variables.
-
-```js
-export class Config {
-  static sendAmount = 0.0001; //amount to send in sol
-  static destAddress = addressList; //address destination list
-  static maxRetry = 3; // max error retry for claiming
-}
-```
-
-to configure destination address list, open `src config/address_list.js` adjust the list with yours. the bot will pick random destination address from that list to send token or it will send to its own wallet address.
 
 ## HOW TO UPDATE
 
@@ -68,6 +56,6 @@ Bot running using twister, so if you run multiple account maybe some account not
 want to support me for creating another bot ?
 buy me a coffee on
 
-EVM : `0x0fd08d2d42ff086bf8c6d057d02d802bf217559a`
+EVM : `0x3437ac293296C43174278D90Ba08B25B36167aca`
 
-SOLANA : `3tE3Hs7P2wuRyVxyMD7JSf8JTAmEekdNsQWqAnayE1CN`
+SOLANA : `DhvXt1hSvkhMwyVvPVwTF5ge1qgKT1sHgnknS4wtnLsG`
