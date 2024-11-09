@@ -9,7 +9,7 @@ async function operation(acc, proxy) {
   try {
     await solana.connectWallet();
     await solana.checkBalance();
-    if (solana.balance < 0.0001) {
+    if (solana.balance < 0.01) {
       throw Error("You need at least 0.01 SOL To Use This BOT");
     }
     await solana.connect();
