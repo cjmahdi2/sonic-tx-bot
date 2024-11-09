@@ -14,8 +14,17 @@ Sonic TX bot for adding more tx on chain
 
 ## PREREQUISITE
 
-- Git
-- Node JS > v18
+```
+sudo apt update && apt upgrade -y
+sudo apt install git
+sudo apt install screen
+sudo apt remove nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+source ~/.bashrc
+nvm install 22.9.0
+nvm use 22.9.0
+nvm alias default 22.9.0
+```
 
 ## SETUP
 
