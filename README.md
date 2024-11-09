@@ -19,13 +19,21 @@ Sonic TX bot for adding more tx on chain
 
 ## SETUP
 
-- run `git clone https://github.com/Widiskel/sonic-tx-bot.git`
-- run `cd sonic-tx-bot`
-- run `npm install`
-- run `cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js` 
+- 1) Run:
+```
+git clone https://github.com/Widiskel/sonic-tx-bot.git
+cd sonic-tx-bot
+npm install
+cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js
+```
+- 2) Fill up:
 - fill up account.js `nano account.js` fill with your account private key
 - fill up proxy_list.js `nano proxy_list.js` fill with your proxy list
-- npm run start
+- 
+- 3) Run:
+```
+npm run start
+```
 
 ## CONFIGURATION
 
