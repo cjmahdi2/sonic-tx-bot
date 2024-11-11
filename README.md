@@ -41,6 +41,7 @@ cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js
 - fill up proxy_list.js `nano proxy_list.js` fill with your proxy list
 
 Note: You can use Free Proxy List:
+Note2: You can not use a proxy at all and leave the `proxy_list.js` file empty, but if you use it, every wallet needs a proxy.
 
 https://files.ramanode.top/airdrop/grass/server_1.txt
 
@@ -53,6 +54,7 @@ https://files.ramanode.top/airdrop/grass/server_4.txt
 https://files.ramanode.top/airdrop/grass/server_5.txt
 
 https://files.ramanode.top/airdrop/grass/server_6.txt
+
 
 **3. Run:
 ```
