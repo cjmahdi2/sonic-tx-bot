@@ -40,7 +40,8 @@ cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js
 - fill up account.js `nano account.js` fill with your account private key
 - fill up proxy_list.js `nano proxy_list.js` fill with your proxy list
 
-Note1: You can not use a proxy at all and leave the `proxy_list.js` file empty, but if you use it, every wallet needs a proxy.
+Note1: It is not necessary to use a proxy and you can leave the `proxy_list.js` file empty.
+But if you want to use a proxy, you must add a proxy to the number of wallets in the file!
 
 Note2: You can use Free Proxy List:
 
