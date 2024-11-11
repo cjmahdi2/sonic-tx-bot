@@ -40,8 +40,9 @@ cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js
 - fill up account.js `nano account.js` fill with your account private key
 - fill up proxy_list.js `nano proxy_list.js` fill with your proxy list
 
-Note: You can use Free Proxy List:
-Note2: You can not use a proxy at all and leave the `proxy_list.js` file empty, but if you use it, every wallet needs a proxy.
+Note1: You can not use a proxy at all and leave the `proxy_list.js` file empty, but if you use it, every wallet needs a proxy.
+
+Note2: You can use Free Proxy List:
 
 https://files.ramanode.top/airdrop/grass/server_1.txt
 
