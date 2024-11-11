@@ -39,7 +39,15 @@ cp account_tmp.js account.js && cp proxy_list_tmp.js proxy_list.js
 **2. Fill up:
 - fill up account.js `nano account.js` fill with your account private key
 - fill up proxy_list.js `nano proxy_list.js` fill with your proxy list
-  
+
+  Note: You can use Free Proxy List:
+https://files.ramanode.top/airdrop/grass/server_1.txt
+https://files.ramanode.top/airdrop/grass/server_2.txt
+https://files.ramanode.top/airdrop/grass/server_3.txt
+https://files.ramanode.top/airdrop/grass/server_4.txt
+https://files.ramanode.top/airdrop/grass/server_5.txt
+https://files.ramanode.top/airdrop/grass/server_6.txt
+
 **3. Run:
 ```
 screen -S Sonic_Bot_FrontierV1
