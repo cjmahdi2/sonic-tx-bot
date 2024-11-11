@@ -97,6 +97,6 @@ Bot running using twister, so if you run multiple account maybe some account not
 want to support me for creating another bot ?
 buy me a coffee on
 
-EVM : `0x3437ac293296C43174278D90Ba08B25B36167aca`
+EVM : `0x83F129E662B21cF035bc9510f65eb29C75b69155`
 
-SOLANA : `DhvXt1hSvkhMwyVvPVwTF5ge1qgKT1sHgnknS4wtnLsG`
+SOLANA : ``
