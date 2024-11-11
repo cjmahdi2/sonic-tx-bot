@@ -4,13 +4,25 @@ Sonic TX bot for adding more tx on chain
 
 ## BOT FEATURE
 
-- Support PK and SEED
+- Support on Testnet-v1
+- Support PrivetKey and SeedPharase
 - Proxy Support
 - Auto Check In
 - Auto TX until 100 Times
 - Auto Claim TX Milestone
 - Auto Opening Mystery Box
-- Support on testnet-v1
+
+## Prerequisites
+
+How many solona Wallets should you make, preferably with a backpack wallet...
+ 
+**Site link:**
+
+https://odyssey.sonic.game/?join=PDfJoX
+
+Log in to the site And Get faucet for them here:
+
+https://faucet.sonic.game/#/?network=testnet.v1
 
 ## PREREQUISITE
 
