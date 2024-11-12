@@ -57,17 +57,7 @@ But if you want to use a proxy, you must add a proxy to the number of wallets in
 
 Note2: You can use Free Proxy List:
 
-https://files.ramanode.top/airdrop/grass/server_1.txt
-
-https://files.ramanode.top/airdrop/grass/server_2.txt
-
-https://files.ramanode.top/airdrop/grass/server_3.txt
-
-https://files.ramanode.top/airdrop/grass/server_4.txt
-
-https://files.ramanode.top/airdrop/grass/server_5.txt
-
-https://files.ramanode.top/airdrop/grass/server_6.txt
+https://raw.githubusercontent.com/cjmahdi2/sonic-tx-bot/refs/heads/master/Active_proxies.txt
 
 
 **3. Run:
