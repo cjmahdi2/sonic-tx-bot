@@ -108,13 +108,12 @@ export class Helper {
                  .,okkddxkd;.                             
                     'oxxd;.                               
    ........................................                              
-   ____    _           __  __     _      _   _   ____             
-U /"___|U |"| u      U|' \/ '|U  /"\  u |'| |'| |  _"\   ___      
-\| | u _ \| |/       \| |\/| |/\/ _ \/ /| |_| |/| | | | |_"_|     
- | |/_| |_| |_,-.     | |  | | / ___ \ U|  _  |U| |_| |\ | |      
-  \____\___/-(_/      |_|  |_|/_/   \_\ |_| |_| |____/ U/| |\u    
- _// \\ _//          <<,-,,-.  \\    >> //   \\  |||.-,_|___|_,-. 
-(__)(__(__)           (./  \.)(__)  (__(_") ("_)(__)_\_)-' '-(_/  
+   .OWo  xNd lox  xxl Ald   xoc dakkkkkxsx.              
+   .OWo  o0W cXW  dM0 MMN   lNK laddKMNkso.               
+   .kMKoxsNN oWX  dW0 MMMWO lWK    axM0   .                
+   .OMWXNaMX dM0  kM0 MMKxNXKW0    axMk   .                 
+   .OMk  dWK oWX XWdx Mxx  XMMO    akMx   .                 
+   'OWo  dM0 'kNNXNNd DMD   OWk    aoWd   .                 
    ........................................                 
                                                                       
 `);
