@@ -109,15 +109,30 @@ async function startBot() {
           `You Have ${account.length} Accounts But Provide ${proxyList.length}`
         );
 
-      const promiseList = [];
+      const batchSize = 25; // تعداد حساب‌هایی که هم‌زمان پردازش می‌شود
+      let batchIndex = 0;
 
-      for (const acc of account) {
-        const accIdx = account.indexOf(acc);
-        const proxy = proxyList[accIdx];
-        promiseList.push(operation(acc, proxy));
+      while (batchIndex < account.length) {
+        const batch = account.slice(batchIndex, batchIndex + batchSize);
+        const batchPromises = [];
+
+        // برای هر حساب در این batch یک عملیات آغاز می‌شود
+        for (const acc of batch) {
+          const accIdx = account.indexOf(acc);
+          const proxy = proxyList[accIdx];
+          batchPromises.push(operation(acc, proxy)); // فراخوانی عملیات برای هر حساب
+        }
+
+        // صبر می‌کنیم تا عملیات‌های این batch کامل شوند
+        await Promise.all(batchPromises);
+
+        // برو به batch بعدی
+        batchIndex += batchSize;
+
+        // اگر نیاز دارید که بین هر batch کمی تاخیر بیافتد (مثلا برای جلوگیری از فشار روی سرور)
+        await Helper.delay(1000); // تاخیر 1 ثانیه بین batchها
       }
 
-      await Promise.all(promiseList);
       resolve();
     } catch (error) {
       logger.info(`BOT STOPPED`);
@@ -125,6 +140,37 @@ async function startBot() {
       reject(error);
     }
   });
+}
+
+// محاسبه زمان تا ساعت ۴ صبح
+function getTimeToNextRun() {
+  const now = new Date();
+  const targetHour = 4; // ساعت هدف ۴ صبح
+  const targetTime = new Date(now.setHours(targetHour, 0, 0, 0)); // تنظیم ساعت به ۴ صبح امروز
+
+  if (now > targetTime) {
+    // اگر الان از ۴ صبح گذشته، باید ۴ صبح روز بعد را محاسبه کنیم
+    targetTime.setDate(targetTime.getDate() + 1);
+  }
+
+  return targetTime - now; // زمان باقی‌مانده به میلی‌ثانیه
+}
+
+// اجرای کد به طور خودکار هر روز ساعت ۴ صبح
+async function scheduleDailyRun() {
+  try {
+    // محاسبه زمان باقی‌مانده تا ۴ صبح
+    const timeToNextRun = getTimeToNextRun();
+    console.log(`Next run will be in: ${timeToNextRun / 1000 / 60 / 60} hours`);
+
+    // صبر کردن تا رسیدن به ساعت ۴ صبح
+    setTimeout(async () => {
+      await startBot(); // اجرای کد اصلی
+      scheduleDailyRun(); // برنامه‌ریزی اجرای مجدد روز بعد
+    }, timeToNextRun); // زمان‌بندی اجرای بعدی
+  } catch (error) {
+    console.log("Error scheduling next run:", error);
+  }
 }
 
 (async () => {
@@ -141,9 +187,9 @@ async function startBot() {
     console.log();
     console.log();
     Helper.showSkelLogo();
-    await startBot();
+    await scheduleDailyRun(); // شروع برنامه‌ریزی اجرای روزانه
   } catch (error) {
-    console.log("Error During executing bot", error);
-    await startBot();
+    console.log("Error during executing bot:", error);
+    await scheduleDailyRun(); // شروع دوباره برنامه‌ریزی در صورت خطا
   }
 })();
