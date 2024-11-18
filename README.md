@@ -64,6 +64,7 @@ https://raw.githubusercontent.com/cjmahdi2/sonic-tx-bot/refs/heads/master/Active
 ```
 screen -S Sonic_Bot_FrontierV1
 ```
+```
 npm run start
 ```
 Then take Ctrl + A then D to leave the Screen
