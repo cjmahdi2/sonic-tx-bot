@@ -65,13 +65,6 @@ async function operation(acc, proxy) {
       });
       await solana.getRewardInfo();
     }
-
-    await Helper.delay(
-      60000 * 60 * 5,
-      acc,
-      `Account Processing Complete, Delaying for 24 H`,
-      solana
-    );
   } catch (error) {
     let msg = error.message;
     if (msg.includes("<!DOCTYPE html>")) {
@@ -80,9 +73,7 @@ async function operation(acc, proxy) {
     await Helper.delay(
       500,
       acc,
-      `Error ${msg}, Retrying using Account ${
-        account.indexOf(acc) + 1
-      } after 10 Second...`,
+      `Error ${msg}, Retrying using Account ${account.indexOf(acc) + 1} after 10 Second...`,
       solana
     );
 
@@ -92,10 +83,6 @@ async function operation(acc, proxy) {
     await operation(acc, proxy);
   }
 }
-
-process.on("unhandledRejection", (reason) => {
-  throw Error("Unhandled Exception : " + reason);
-});
 
 async function startBot() {
   return new Promise(async (resolve, reject) => {
@@ -109,31 +96,31 @@ async function startBot() {
           `You Have ${account.length} Accounts But Provide ${proxyList.length}`
         );
 
-      const batchSize = 25; // تعداد حساب‌هایی که هم‌زمان پردازش می‌شود
+      const batchSize = 25; // تعداد حساب‌هایی که همزمان پردازش می‌شوند
       let batchIndex = 0;
 
       while (batchIndex < account.length) {
         const batch = account.slice(batchIndex, batchIndex + batchSize);
         const batchPromises = [];
 
-        // برای هر حساب در این batch یک عملیات آغاز می‌شود
+        // برای هر حساب در دسته، یک عملیات به صورت موازی اجرا می‌شود
         for (const acc of batch) {
           const accIdx = account.indexOf(acc);
           const proxy = proxyList[accIdx];
-          batchPromises.push(operation(acc, proxy)); // فراخوانی عملیات برای هر حساب
+          batchPromises.push(operation(acc, proxy)); // عملیات برای هر حساب در این دسته
         }
 
-        // صبر می‌کنیم تا عملیات‌های این batch کامل شوند
+        // منتظر می‌مانیم تا همه عملیات در این دسته تمام شود
         await Promise.all(batchPromises);
 
-        // برو به batch بعدی
+        // پس از اتمام دسته، به دسته بعدی می‌رویم
         batchIndex += batchSize;
 
-        // اگر نیاز دارید که بین هر batch کمی تاخیر بیافتد (مثلا برای جلوگیری از فشار روی سرور)
-        await Helper.delay(1000); // تاخیر 1 ثانیه بین batchها
+        // به محض اتمام عملیات یک دسته، 1 ثانیه وقفه ایجاد می‌کنیم قبل از شروع دسته بعدی
+        await Helper.delay(1000); // 1 ثانیه تاخیر بین دسته‌ها
       }
 
-      resolve();
+      resolve(); // وقتی تمام حساب‌ها پردازش شدند، عملیات به پایان می‌رسد
     } catch (error) {
       logger.info(`BOT STOPPED`);
       logger.error(JSON.stringify(error));
@@ -142,32 +129,30 @@ async function startBot() {
   });
 }
 
-// محاسبه زمان تا ساعت ۴ صبح
+// تابع برای محاسبه زمان برای اجرای بعدی
 function getTimeToNextRun() {
   const now = new Date();
-  const targetHour = 4; // ساعت هدف ۴ صبح
-  const targetTime = new Date(now.setHours(targetHour, 0, 0, 0)); // تنظیم ساعت به ۴ صبح امروز
+  const targetHour = 4; // ساعت هدف (مثلاً ساعت 4 صبح)
+  const targetTime = new Date(now.setHours(targetHour, 0, 0, 0)); // زمان هدف برای ساعت 4 صبح
 
   if (now > targetTime) {
-    // اگر الان از ۴ صبح گذشته، باید ۴ صبح روز بعد را محاسبه کنیم
+    // اگر زمان حال از ساعت هدف گذشته باشد، به روز بعد می‌رویم
     targetTime.setDate(targetTime.getDate() + 1);
   }
 
-  return targetTime - now; // زمان باقی‌مانده به میلی‌ثانیه
+  return targetTime - now; // زمان باقی‌مانده تا اجرای بعدی
 }
 
-// اجرای کد به طور خودکار هر روز ساعت ۴ صبح
+// اجرای روزانه بات
 async function scheduleDailyRun() {
   try {
-    // محاسبه زمان باقی‌مانده تا ۴ صبح
     const timeToNextRun = getTimeToNextRun();
     console.log(`Next run will be in: ${timeToNextRun / 1000 / 60 / 60} hours`);
 
-    // صبر کردن تا رسیدن به ساعت ۴ صبح
     setTimeout(async () => {
-      await startBot(); // اجرای کد اصلی
-      scheduleDailyRun(); // برنامه‌ریزی اجرای مجدد روز بعد
-    }, timeToNextRun); // زمان‌بندی اجرای بعدی
+      await startBot(); // شروع بات
+      scheduleDailyRun(); // اجرای دوباره در روز بعد
+    }, timeToNextRun); // زمان تا اجرای بعدی
   } catch (error) {
     console.log("Error scheduling next run:", error);
   }
@@ -187,9 +172,9 @@ async function scheduleDailyRun() {
     console.log();
     console.log();
     Helper.showSkelLogo();
-    await scheduleDailyRun(); // شروع برنامه‌ریزی اجرای روزانه
+    await startBot(); // شروع بات بدون تأخیر 24 ساعته
   } catch (error) {
     console.log("Error during executing bot:", error);
-    await scheduleDailyRun(); // شروع دوباره برنامه‌ریزی در صورت خطا
+    await scheduleDailyRun(); // در صورت خطا، دوباره تلاش می‌کنیم
   }
 })();
