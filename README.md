@@ -6,7 +6,7 @@ Sonic TX bot for adding more tx on chain
 
 - Support on Testnet-v1
 - Support PrivetKey
-- Proxy Support
+- Support Proxy
 - Auto Check In
 - Auto TX until 100 Times
 - Auto Claim TX Milestone
