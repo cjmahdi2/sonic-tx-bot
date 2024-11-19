@@ -10,7 +10,7 @@ async function operation(acc, proxy) {
     await solana.connectWallet();
     await solana.checkBalance();
     if (solana.balance < 0.01) {
-      throw Error("You need at least 0.01 SOL To Use This BOT");
+      throw new Error("You need at least 0.01 SOL To Use This BOT");
     }
     await solana.connect();
     await Helper.delay(500, acc, `Getting Wallet Balance Information`, solana);
@@ -23,60 +23,43 @@ async function operation(acc, proxy) {
       while (solana.dailyTx.total_transactions <= 100) {
         await solana.sendSolToAddress(acc);
         const randWait = Helper.random(1000, 3000);
-        await Helper.delay(randWait, acc, "Delaying before do next tx", solana);
+        await Helper.delay(randWait, acc, "Delaying before next tx", solana);
       }
     }
 
     await solana.getDailyTx();
 
     const claimableStage = [];
-    if (solana.dailyTx.total_transactions >= 10) {
-      claimableStage.push(1);
-    }
-    if (solana.dailyTx.total_transactions >= 50) {
-      claimableStage.push(2);
-    }
-    if (solana.dailyTx.total_transactions >= 100) {
-      claimableStage.push(3);
-    }
+    if (solana.dailyTx.total_transactions >= 10) claimableStage.push(1);
+    if (solana.dailyTx.total_transactions >= 50) claimableStage.push(2);
+    if (solana.dailyTx.total_transactions >= 100) claimableStage.push(3);
 
     for (const stage of claimableStage) {
       await solana.claimTxMilestone(stage);
     }
 
     await solana.getRewardInfo();
-    await Helper.delay(
-      500,
-      acc,
-      `Opening ${solana.reward.ring_monitor} Mystery box`,
-      solana
-    );
+    await Helper.delay(500, acc, `Opening ${solana.reward.ring_monitor} Mystery box`, solana);
 
-    while (solana.reward.ring_monitor != 0) {
+    // تغییر این بخش به منظور نمایش پیام پایان عملیات
+    while (solana.reward.ring_monitor !== 0) {
       await solana.claimMysteryBox().catch(async (err) => {
         if (err.message.includes("custom program error")) {
-          await Helper.delay(
-            3000,
-            acc,
-            `Error while claiming mystery box, possible Sonic program error, skipping open box`,
-            solana
-          );
+          await Helper.delay(3000, acc, `Error while claiming mystery box, skipping open box`, solana);
         }
       });
       await solana.getRewardInfo();
     }
+
+    // وقتی همه عملیات تکمیل شد، پیام پایان عملیات نمایش داده می‌شود.
+    await Helper.delay(500, acc, `The Operation Ended Today.`, solana);
+
   } catch (error) {
     let msg = error.message;
     if (msg.includes("<!DOCTYPE html>")) {
       msg = msg.split("<!DOCTYPE html>")[0];
     }
-    await Helper.delay(
-      500,
-      acc,
-      `Error ${msg}, Retrying using Account ${account.indexOf(acc) + 1} after 10 Second...`,
-      solana
-    );
-
+    await Helper.delay(500, acc, `Error ${msg}, Retrying...`, solana);
     logger.info(`Retrying using Account ${account.indexOf(acc) + 1}...`);
     logger.error(error);
     await Helper.delay(10000);
@@ -96,7 +79,7 @@ async function startBot() {
           `You Have ${account.length} Accounts But Provide ${proxyList.length}`
         );
 
-      const batchSize = 25; // تعداد حساب‌هایی که همزمان پردازش می‌شوند
+      const batchSize = 50; // تعداد حساب‌هایی که همزمان پردازش می‌شوند
       let batchIndex = 0;
 
       while (batchIndex < account.length) {
