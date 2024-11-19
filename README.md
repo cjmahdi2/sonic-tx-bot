@@ -5,12 +5,13 @@ Sonic TX bot for adding more tx on chain
 ## BOT FEATURE
 
 - Support on Testnet-v1
-- Support PrivetKey and SeedPharase
+- Support PrivetKey
 - Proxy Support
 - Auto Check In
 - Auto TX until 100 Times
 - Auto Claim TX Milestone
 - Auto Opening Mystery Box
+- Auto Run Every Day
 
 ## Prerequisites
 
