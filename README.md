@@ -13,8 +13,9 @@ Sonic TX bot for adding more tx on chain
 - Auto Opening Mystery Box
 - Auto Run Every Day
 - Improved CPU Performance in Concurrent Execution
-<span style="color: green;">Auto Run Every Day</span>
-<span style="color: green;">Improved CPU Performance in Concurrent Execution</span>
+- 
+<span style="color: green;">این یک جمله سبز است</span>
+
 
 
 ## Prerequisites
