@@ -12,6 +12,7 @@ Sonic TX bot for adding more tx on chain
 - Auto Claim TX Milestone
 - Auto Opening Mystery Box
 - Auto Run Every Day
+- Improved CPU Performance in Concurrent Execution
 
 ## Prerequisites
 
