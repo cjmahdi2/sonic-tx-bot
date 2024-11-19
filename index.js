@@ -67,7 +67,7 @@ async function operation(acc, proxy) {
     }
 
     await Helper.delay(
-      60000 * 60 * 24,
+      60000 * 60 * 5,
       acc,
       `Account Processing Complete, Delaying for 24 H`,
       solana
