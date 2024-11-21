@@ -73,6 +73,18 @@ npm run start
 Then take Ctrl + A then D to leave the Screen
 
 
+## Tip (Auto Run Daily):
+If you want to set up your Bot to run every day at 2:00 AM server time:
+
+1. Edit the Cron File:
+```
+crontab -e
+```
+2. Add the following line to the crontab file:
+```
+0 3 * * * cd /root/sonic-tx-bot_Test && node index.js
+```
+After completing the Cron File, press Ctrl + x and then Ctrl + y and then Enter to save.
 
 ----------------------------------------------------------------------------------
 ## HOW TO UPDATE
