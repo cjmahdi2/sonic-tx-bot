@@ -86,6 +86,7 @@ crontab -e
 ```
 After completing the Cron File, press Ctrl + x and then Ctrl + y and then Enter to save.
 
+3. Give executive access:
 ```
 chmod +x /root/sonic-tx-bot/index.js
 ```
