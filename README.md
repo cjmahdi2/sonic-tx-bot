@@ -74,7 +74,7 @@ Then take Ctrl + A then D to leave the Screen
 
 
 ## Tip (Auto Run Daily):
-If you want to set up your Bot to run every day at 2:00 AM server time:
+If you want to set up your Bot to run every day at 3:00 AM server time:
 
 1. Edit the Cron File:
 ```
