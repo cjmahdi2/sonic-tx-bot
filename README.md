@@ -82,10 +82,13 @@ crontab -e
 ```
 2. Add the following line to the crontab file:
 ```
-0 3 * * * cd /root/sonic-tx-bot_Test && node index.js
+0 3 * * * cd /root/sonic-tx-bot && node index.js
 ```
 After completing the Cron File, press Ctrl + x and then Ctrl + y and then Enter to save.
 
+```
+chmod +x /root/sonic-tx-bot/index.js
+```
 ----------------------------------------------------------------------------------
 ## HOW TO UPDATE
 
