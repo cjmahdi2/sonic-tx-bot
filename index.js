@@ -41,7 +41,6 @@ async function operation(acc, proxy) {
     await solana.getRewardInfo();
     await Helper.delay(500, acc, `Opening ${solana.reward.ring_monitor} Mystery box`, solana);
 
-    // تغییر این بخش به منظور نمایش پیام پایان عملیات
     while (solana.reward.ring_monitor !== 0) {
       await solana.claimMysteryBox().catch(async (err) => {
         if (err.message.includes("custom program error")) {
@@ -51,7 +50,6 @@ async function operation(acc, proxy) {
       await solana.getRewardInfo();
     }
 
-    // وقتی همه عملیات تکمیل شد، پیام پایان عملیات نمایش داده می‌شود.
     await Helper.delay(500, acc, `The Operation Ended Today.`, solana);
 
   } catch (error) {
@@ -79,66 +77,33 @@ async function startBot() {
           `You Have ${account.length} Accounts But Provide ${proxyList.length}`
         );
 
-      const batchSize = 50; // تعداد حساب‌هایی که همزمان پردازش می‌شوند
+      const batchSize = 50;
       let batchIndex = 0;
 
       while (batchIndex < account.length) {
         const batch = account.slice(batchIndex, batchIndex + batchSize);
         const batchPromises = [];
 
-        // برای هر حساب در دسته، یک عملیات به صورت موازی اجرا می‌شود
         for (const acc of batch) {
           const accIdx = account.indexOf(acc);
           const proxy = proxyList[accIdx];
-          batchPromises.push(operation(acc, proxy)); // عملیات برای هر حساب در این دسته
+          batchPromises.push(operation(acc, proxy));
         }
 
-        // منتظر می‌مانیم تا همه عملیات در این دسته تمام شود
         await Promise.all(batchPromises);
 
-        // پس از اتمام دسته، به دسته بعدی می‌رویم
         batchIndex += batchSize;
 
-        // به محض اتمام عملیات یک دسته، 1 ثانیه وقفه ایجاد می‌کنیم قبل از شروع دسته بعدی
-        await Helper.delay(1000); // 1 ثانیه تاخیر بین دسته‌ها
+        await Helper.delay(1000);
       }
 
-      resolve(); // وقتی تمام حساب‌ها پردازش شدند، عملیات به پایان می‌رسد
+      resolve();
     } catch (error) {
       logger.info(`BOT STOPPED`);
       logger.error(JSON.stringify(error));
       reject(error);
     }
   });
-}
-
-// تابع برای محاسبه زمان برای اجرای بعدی
-function getTimeToNextRun() {
-  const now = new Date();
-  const targetHour = 4; // ساعت هدف (مثلاً ساعت 4 صبح)
-  const targetTime = new Date(now.setHours(targetHour, 0, 0, 0)); // زمان هدف برای ساعت 4 صبح
-
-  if (now > targetTime) {
-    // اگر زمان حال از ساعت هدف گذشته باشد، به روز بعد می‌رویم
-    targetTime.setDate(targetTime.getDate() + 1);
-  }
-
-  return targetTime - now; // زمان باقی‌مانده تا اجرای بعدی
-}
-
-// اجرای روزانه بات
-async function scheduleDailyRun() {
-  try {
-    const timeToNextRun = getTimeToNextRun();
-    console.log(`Next run will be in: ${timeToNextRun / 1000 / 60 / 60} hours`);
-
-    setTimeout(async () => {
-      await startBot(); // شروع بات
-      scheduleDailyRun(); // اجرای دوباره در روز بعد
-    }, timeToNextRun); // زمان تا اجرای بعدی
-  } catch (error) {
-    console.log("Error scheduling next run:", error);
-  }
 }
 
 (async () => {
@@ -155,9 +120,8 @@ async function scheduleDailyRun() {
     console.log();
     console.log();
     Helper.showSkelLogo();
-    await startBot(); // شروع بات بدون تأخیر 24 ساعته
+    await startBot();
   } catch (error) {
     console.log("Error during executing bot:", error);
-    await scheduleDailyRun(); // در صورت خطا، دوباره تلاش می‌کنیم
   }
 })();
