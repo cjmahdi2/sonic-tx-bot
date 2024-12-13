@@ -36,9 +36,9 @@ sudo apt install screen
 sudo apt remove nodejs
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 source ~/.bashrc
-nvm install 22.9.0
-nvm use 22.9.0
-nvm alias default 22.9.0
+nvm install 23.4.0
+nvm use 23.4.0
+nvm alias default 23.4.0
 ```
 
 ## SETUP
